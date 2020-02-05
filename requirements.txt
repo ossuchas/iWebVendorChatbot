@@ -1,0 +1,14 @@
+flask
+flask_restful
+flask_cors
+flask_sqlalchemy
+flask_jwt_extended
+flask_uploads
+marshmallow==3.0.0rc5
+flask_marshmallow
+marshmallow-sqlalchemy
+minio
+Pillow
+requests
+gunicorn
+python-dotenv
