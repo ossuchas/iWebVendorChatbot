@@ -30,27 +30,7 @@ DEFAULT_REPLY_WORDING = "เจ้านายกำลังฝึกผมใ�
 REPLY_WORDING = ["99999", "00000", "เสี่ยจัสติน", "เสี่ย"]
 TEST_WORDING = ["test", "Test"]
 
-
-# Peroid Select Gross incomde
-GROSS_INCOME = "Gross Income Period Y2D"
-
-MENU_02_VIP_BG = "LL BY SubBG"
-
-# Peroid Select Gross incomde
-BOOKING_INCOME = "Booking Period Y2D"
-
-# Peroid Select All Sub BG
-LL_MSG_ALLSUBBG_PERIOD = "LL Period BY SubBG"
-
 RICH_MENU_MAIN = "richmenu-d8d6ac0c6ec6c8144a0779fae0765209"
 RICH_MENU_SECOND = "richmenu-2b04c8ad0b5ef6dfecf732b52b82e393"
-
-CHECK_PM = "ตรวจสอบค่า PM 2.5"
-
-# Virus Corona
-VIRUS = ["ไวรัสโคโรนา", "โคโรนา", "virus", "corona", "อู่ฮั่น", "ไวรัสจีน", "ไวรัส"]
-
-# Hit Features
-HIT_FEATURES = "Hit Features"
 
 WEB_VENDOR = "Web Vendor"
