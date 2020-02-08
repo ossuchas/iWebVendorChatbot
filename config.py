@@ -33,4 +33,7 @@ TEST_WORDING = ["test", "Test"]
 RICH_MENU_MAIN = "richmenu-d8d6ac0c6ec6c8144a0779fae0765209"
 RICH_MENU_SECOND = "richmenu-2b04c8ad0b5ef6dfecf732b52b82e393"
 
-WEB_VENDOR = "Web Vendor"
+ERROR_NUMB_ONLY = "กรุณาระบุเเฉพาะตัวเลข PO เท่านั้น"
+ERROR_NUMB_LEN = "คุณระบุหมายเลข PO ไม่ถูกต้อง, กรุณาตรวจสอบใหม่อีกครั้ง"
+ERROR_NUMB_PREFIX_PO = "คุณระบุหมายเลข PO ไม่ถูกต้อง, กรุณาตรวจสอบใหม่อีกครั้ง"
+MENU_01_CHECK_PO = "กรณีระบุเลขที่ (PO) ที่ท่านต้องการตรวจสอบ"

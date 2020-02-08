@@ -5,10 +5,13 @@ import re
 
 from datetime import datetime, timedelta
 
-from libs import chatbot_helper, log_linechatbot as logs
+from libs import chatbot_helper, log_linechatbot as logs, \
+    wd_check_status
+
 
 from config import CHANNEL_ACCESS_TOKEN, REPLY_WORDING, \
-    DEFAULT_REPLY_WORDING
+    DEFAULT_REPLY_WORDING, ERROR_NUMB_ONLY, MENU_01_CHECK_PO, \
+    ERROR_NUMB_LEN, ERROR_NUMB_PREFIX_PO
 
 
 from models.chatbot_mst_user import MstUserModel
@@ -72,12 +75,27 @@ class ChatBotWebhook(Resource):
             user = MstUserModel().check_auth_by_token_id(userId)
 
             if user:
-                # print("found")
-                pass
-                # if message == MENU_01_VIP:  # LL ALL BG
-                #     menu_01_01_ll_allbg_sel_bg.replyMsg(reply_token, None, CHANNEL_ACCESS_TOKEN)
+                if message == MENU_01_CHECK_PO:
+                    # print('menu01')
+                    pass
+                elif message.isdigit():
+                    if len(message) != 10:
+                        # print("Len Not Equal 10")
+                        reply_msg = ERROR_NUMB_LEN
+                        chatbot_helper.replyMsg(reply_token, reply_msg, CHANNEL_ACCESS_TOKEN)
+                    elif message[0:2] != '40':
+                        # print("Not Equal Prefix 40")
+                        reply_msg = ERROR_NUMB_PREFIX_PO
+                        chatbot_helper.replyMsg(reply_token, reply_msg, CHANNEL_ACCESS_TOKEN)
+                    else:
+                        print("find PO Status")
+                        wd_check_status.replyMsg(reply_token, "4016578316", CHANNEL_ACCESS_TOKEN)
+                else:
+                    # print("is Not Number")
+                    reply_msg = ERROR_NUMB_ONLY
+                    chatbot_helper.replyMsg(reply_token, reply_msg, CHANNEL_ACCESS_TOKEN)
             else:
-                pass
+                print('not found')
                 # print("not found")
         elif msg_type == 'image':  # Image Upload to Line Bot
             image_id = payload['events'][0]['message']['id']
