@@ -15,6 +15,7 @@ from config import CHANNEL_ACCESS_TOKEN, REPLY_WORDING, \
 
 
 from models.chatbot_mst_user import MstUserModel
+from models.wd_line_chatbot import WDPOStatusModel
 
 
 class ChatBot(Resource):
@@ -89,7 +90,9 @@ class ChatBotWebhook(Resource):
                         chatbot_helper.replyMsg(reply_token, reply_msg, CHANNEL_ACCESS_TOKEN)
                     else:
                         print("find PO Status")
-                        wd_check_status.replyMsg(reply_token, "4016578316", CHANNEL_ACCESS_TOKEN)
+                        poObjs = WDPOStatusModel().find_by_po("4016578316")
+                        # print(poObj)
+                        wd_check_status.replyMsg(reply_token, poObjs, CHANNEL_ACCESS_TOKEN)
                 else:
                     # print("is Not Number")
                     reply_msg = ERROR_NUMB_ONLY
