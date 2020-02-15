@@ -6,16 +6,17 @@ import re
 from datetime import datetime, timedelta
 
 from libs import chatbot_helper, log_linechatbot as logs, \
-    wd_check_status
+    wd_check_status, wd_all_status
 
 
 from config import CHANNEL_ACCESS_TOKEN, REPLY_WORDING, \
     DEFAULT_REPLY_WORDING, ERROR_NUMB_ONLY, MENU_01_CHECK_PO, \
-    ERROR_NUMB_LEN, ERROR_NUMB_PREFIX_PO
+    ERROR_NUMB_LEN, ERROR_NUMB_PREFIX_PO, FIND_PO_TRAN_ID
 
 
 from models.chatbot_mst_user import MstUserModel
 from models.wd_line_chatbot import WDPOStatusModel
+from models.wd_all_line_chatbot import WDPOAllStatusModel
 
 
 class ChatBot(Resource):
@@ -77,8 +78,12 @@ class ChatBotWebhook(Resource):
 
             if user:
                 if message == MENU_01_CHECK_PO:
-                    # print('menu01')
                     pass
+                elif re.match(FIND_PO_TRAN_ID, message):
+                    values = message.split("=")
+                    tran_id = values[1]
+                    poObjs = WDPOStatusModel().find_by_tran_id(tran_id)
+                    wd_check_status.replyMsg(reply_token, poObjs, CHANNEL_ACCESS_TOKEN)
                 elif message.isdigit():
                     if len(message) != 10:
                         # print("Len Not Equal 10")
@@ -90,9 +95,8 @@ class ChatBotWebhook(Resource):
                         chatbot_helper.replyMsg(reply_token, reply_msg, CHANNEL_ACCESS_TOKEN)
                     else:
                         print("find PO Status")
-                        poObjs = WDPOStatusModel().find_by_po("4016578316")
-                        # print(poObj)
-                        wd_check_status.replyMsg(reply_token, poObjs, CHANNEL_ACCESS_TOKEN)
+                        poObjs = WDPOAllStatusModel().find_by_po(message)
+                        wd_all_status.replyMsg(reply_token, poObjs, CHANNEL_ACCESS_TOKEN)
                 else:
                     # print("is Not Number")
                     reply_msg = ERROR_NUMB_ONLY
@@ -112,6 +116,7 @@ class ChatBotWebhook(Resource):
             pass
         elif msg_type == 'postback':
             param_data = payload['events'][0]['postback']['data']
+            print(param_data)
             richmenuId = None
             # if param_data == 'next':
             #     richmenuId = RICH_MENU_SECOND

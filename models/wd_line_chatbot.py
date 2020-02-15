@@ -19,6 +19,10 @@ class WDPOStatusModel(db.Model):
     def find_by_po(cls, _po_id: str) -> List["WDPOStatusModel"]:
         return cls.query.filter_by(POID=_po_id).order_by(cls.ModifyDate.desc()).all()
 
+    @classmethod
+    def find_by_tran_id(cls, _tran_id: str) -> List["WDPOStatusModel"]:
+        return cls.query.filter_by(Tran_Id=_tran_id).order_by(cls.ModifyDate.desc()).all()
+
     def save_to_db(self) -> None:
         db.session.add(self)
         db.session.commit()
