@@ -19,7 +19,7 @@ def replyMsg(Reply_token: str = None, poObjs: List["WDPOStatusModel"] = None, li
 
     # print(poObjs)
     new_contents = [
-        {"type": "text", "text": "ปริมาณคงเหลือ: 2/5 หน่วย", "color": "#8c8c8c", "size": "xs", "weight": "bold"},
+        # {"type": "text", "text": "ปริมาณคงเหลือ: 2/5 หน่วย", "color": "#8c8c8c", "size": "xs", "weight": "bold"},
         {"type": "separator", "margin": "sm"},
     ]
 

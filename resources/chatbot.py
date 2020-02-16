@@ -11,7 +11,8 @@ from libs import chatbot_helper, log_linechatbot as logs, \
 
 from config import CHANNEL_ACCESS_TOKEN, REPLY_WORDING, \
     DEFAULT_REPLY_WORDING, ERROR_NUMB_ONLY, MENU_01_CHECK_PO, \
-    ERROR_NUMB_LEN, ERROR_NUMB_PREFIX_PO, FIND_PO_TRAN_ID
+    ERROR_NUMB_LEN, ERROR_NUMB_PREFIX_PO, FIND_PO_TRAN_ID, \
+    UNDER_CONSTRUCTION
 
 
 from models.chatbot_mst_user import MstUserModel
@@ -94,9 +95,12 @@ class ChatBotWebhook(Resource):
                         reply_msg = ERROR_NUMB_PREFIX_PO
                         chatbot_helper.replyMsg(reply_token, reply_msg, CHANNEL_ACCESS_TOKEN)
                     else:
-                        print("find PO Status")
+                        # print("find PO Status")
                         poObjs = WDPOAllStatusModel().find_by_po(message)
                         wd_all_status.replyMsg(reply_token, poObjs, CHANNEL_ACCESS_TOKEN)
+                elif re.match(UNDER_CONSTRUCTION, message):
+                    # print("under construction")
+                    pass
                 else:
                     # print("is Not Number")
                     reply_msg = ERROR_NUMB_ONLY

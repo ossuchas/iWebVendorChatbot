@@ -43,9 +43,8 @@ def replyMsg(Reply_token: str = None, poObjs: List["WDPOAllStatusModel"] = None,
 
         new_contents.append(
             {"type": "box", "layout": "horizontal",
-             "contents": [{"type": "text", "text": poItem.CreateDateDisplay, "size": "sm"},
-                          {"type": "text", "text": poItem.Doc_Status, "size": "sm", "wrap": True,
-                           "align": "end"},
+             "contents": [{"type": "text", "text": poItem.CreateDateDisplay, "size": "sm", "gravity": "center"},
+                          {"type": "text", "text": poItem.Doc_Status, "size": "sm", "wrap": True, "align": "end", "gravity": "center"},
                           {"type": "image", "url": "https://i.ibb.co/nkJRv9n/search.png",
                            "action": {"type": "message", "label": "action", "text": action}, "size": "sm",
                            "aspectMode": "fit", "aspectRatio": "27:14", "align": "end"}
