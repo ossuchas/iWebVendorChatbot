@@ -56,6 +56,7 @@ def replyMsg(Reply_token: str = None, poObjs: List["WDPOAllStatusModel"] = None,
         i_count_rec += 1
 
     poH = POHeaderModel().find_by_poid(poid_display)
+    print(poH)
     vendor_display = f"{poH.vendorname} ({poH.vendorid})"
     new_contents.append(
         {"type": "separator", "margin": "sm"},

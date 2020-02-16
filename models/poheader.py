@@ -14,6 +14,10 @@ class POHeaderModel(db.Model):
     def find_by_poid(cls, _po_id: str) -> "POHeaderModel":
         return cls.query.filter_by(poid=_po_id).first()
 
+    @classmethod
+    def find_by_poid_by_vendor(cls, _po_id: str, _vendor_id: str) -> "POHeaderModel":
+        return cls.query.filter_by(poid=_po_id, vendorid=_vendor_id).first()
+
     def save_to_db(self) -> None:
         db.session.add(self)
         db.session.commit()

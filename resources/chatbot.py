@@ -6,18 +6,19 @@ import re
 from datetime import datetime, timedelta
 
 from libs import chatbot_helper, log_linechatbot as logs, \
-    wd_check_status, wd_all_status
+    wd_check_status, wd_all_status, check_po
 
 
 from config import CHANNEL_ACCESS_TOKEN, REPLY_WORDING, \
     DEFAULT_REPLY_WORDING, ERROR_NUMB_ONLY, MENU_01_CHECK_PO, \
     ERROR_NUMB_LEN, ERROR_NUMB_PREFIX_PO, FIND_PO_TRAN_ID, \
-    UNDER_CONSTRUCTION
+    UNDER_CONSTRUCTION, ERROR_PO_NOT_EXISTING
 
 
 from models.chatbot_mst_user import MstUserModel
 from models.wd_line_chatbot import WDPOStatusModel
 from models.wd_all_line_chatbot import WDPOAllStatusModel
+from models.poheader import POHeaderModel
 
 
 class ChatBot(Resource):
@@ -86,6 +87,11 @@ class ChatBotWebhook(Resource):
                     poObjs = WDPOStatusModel().find_by_tran_id(tran_id)
                     wd_check_status.replyMsg(reply_token, poObjs, CHANNEL_ACCESS_TOKEN)
                 elif message.isdigit():
+                    # if not check_po(message)(0, ):
+                    #     pass
+                    # # print("find PO Status")
+                    # poObjs = WDPOAllStatusModel().find_by_po(message)
+                    # wd_all_status.replyMsg(reply_token, poObjs, CHANNEL_ACCESS_TOKEN)
                     if len(message) != 10:
                         # print("Len Not Equal 10")
                         reply_msg = ERROR_NUMB_LEN
@@ -96,8 +102,19 @@ class ChatBotWebhook(Resource):
                         chatbot_helper.replyMsg(reply_token, reply_msg, CHANNEL_ACCESS_TOKEN)
                     else:
                         # print("find PO Status")
-                        poObjs = WDPOAllStatusModel().find_by_po(message)
-                        wd_all_status.replyMsg(reply_token, poObjs, CHANNEL_ACCESS_TOKEN)
+                        if user.user_type == 'VIP':
+                            poObjs = WDPOAllStatusModel().find_by_po(message)
+                            wd_all_status.replyMsg(reply_token, poObjs, CHANNEL_ACCESS_TOKEN)
+                        else:
+                            print("by Vendor Name")
+                            po_existing = POHeaderModel().find_by_poid_by_vendor(_po_id=message,
+                                                                                 _vendor_id=user.user_name)
+                            if not po_existing:
+                                reply_msg = ERROR_PO_NOT_EXISTING
+                                chatbot_helper.replyMsg(reply_token, reply_msg, CHANNEL_ACCESS_TOKEN)
+
+                            poObjs = WDPOAllStatusModel().find_by_po(message)
+                            wd_all_status.replyMsg(reply_token, poObjs, CHANNEL_ACCESS_TOKEN)
                 elif re.match(UNDER_CONSTRUCTION, message):
                     # print("under construction")
                     pass

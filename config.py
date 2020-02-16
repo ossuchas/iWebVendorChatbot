@@ -36,6 +36,7 @@ RICH_MENU_SECOND = "richmenu-2b04c8ad0b5ef6dfecf732b52b82e393"
 ERROR_NUMB_ONLY = "กรุณาระบุเเฉพาะตัวเลข PO เท่านั้น"
 ERROR_NUMB_LEN = "คุณระบุหมายเลข PO ไม่ถูกต้อง, กรุณาตรวจสอบใหม่อีกครั้ง"
 ERROR_NUMB_PREFIX_PO = "คุณระบุหมายเลข PO ไม่ถูกต้อง, กรุณาตรวจสอบใหม่อีกครั้ง"
+ERROR_PO_NOT_EXISTING = "คุณไม่ได้รับสิทธิในการตรวจสอบ PO รายการนี้"
 MENU_01_CHECK_PO = "กรณีระบุเลขที่ (PO) ที่ท่านต้องการตรวจสอบ"
 
 FIND_PO_TRAN_ID = "tran_id="
