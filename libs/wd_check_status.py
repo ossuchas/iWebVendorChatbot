@@ -47,12 +47,16 @@ def replyMsg(Reply_token: str = None, poObjs: List["WDPOStatusModel"] = None, li
     poid_display = None
     poid = None
     for poItem in poObjs:
+        if i_count_rec != 0:
+            point_color = "#6486E3"
+        else:
+            point_color = "#ed3939"
         new_contents.append(
             {"type": "box", "layout": "horizontal",
              "contents": [{"type": "text", "text": poItem.ModifyDateDisplay, "size": "sm", "gravity": "center", "flex": 0},
                           {"type": "box", "layout": "vertical", "contents":
                               [{"type": "filler"}, {"type": "box", "layout": "vertical", "contents": [ {"type": "filler"}
-                              ], "cornerRadius": "30px", "height": "12px", "width": "12px", "borderColor": "#6486E3", "borderWidth": "2px"}, {"type": "filler"}],
+                              ], "cornerRadius": "30px", "height": "12px", "width": "12px", "borderColor": point_color, "borderWidth": "2px"}, {"type": "filler"}],
                            "flex": 0 },
                           {"type": "text", "text": poItem.Doc_Status, "gravity": "center", "flex": 4, "size": "sm", "color": "#807671", "weight": "bold"} ],
              "spacing": "lg", "cornerRadius": "30px", "margin": "md" },  # Set 1
