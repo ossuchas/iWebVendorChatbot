@@ -73,6 +73,7 @@ def replyMsg(Reply_token: str = None, poObjs: List["WDPOStatusModel"] = None, li
         i_count_rec += 1
 
     poH = POHeaderModel().find_by_poid(poid)
+    print(poH, poid, i_count_rec)
     vendor_display = f"{poH.vendorname} ({poH.vendorid})"
 
     new_contents.append(

@@ -41,11 +41,16 @@ def replyMsg(Reply_token: str = None, poObjs: List["WDPOAllStatusModel"] = None,
         action = f"tran_id={poItem.tran_id}"
         poid_display = poItem.poid
 
+        if poItem.Doc_StatusId == '1':
+            img_search = "https://i.ibb.co/Mp4pjzF/blank.png"
+        else:
+            img_search = "https://i.ibb.co/nkJRv9n/search.png"
+
         new_contents.append(
             {"type": "box", "layout": "horizontal",
              "contents": [{"type": "text", "text": poItem.CreateDateDisplay, "size": "sm", "gravity": "center"},
                           {"type": "text", "text": poItem.Doc_Status, "size": "sm", "wrap": True, "align": "end", "gravity": "center"},
-                          {"type": "image", "url": "https://i.ibb.co/nkJRv9n/search.png",
+                          {"type": "image", "url": img_search,
                            "action": {"type": "message", "label": "action", "text": action}, "size": "sm",
                            "aspectMode": "fit", "aspectRatio": "27:14", "align": "end"}
                           ],

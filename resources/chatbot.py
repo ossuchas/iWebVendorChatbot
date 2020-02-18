@@ -85,6 +85,7 @@ class ChatBotWebhook(Resource):
                     values = message.split("=")
                     tran_id = values[1]
                     poObjs = WDPOStatusModel().find_by_tran_id(tran_id)
+                    print(poObjs)
                     wd_check_status.replyMsg(reply_token, poObjs, CHANNEL_ACCESS_TOKEN)
                 elif message.isdigit():
                     # if not check_po(message)(0, ):
