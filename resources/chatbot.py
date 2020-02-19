@@ -12,7 +12,7 @@ from libs import chatbot_helper, log_linechatbot as logs, \
 from config import CHANNEL_ACCESS_TOKEN, REPLY_WORDING, \
     DEFAULT_REPLY_WORDING, ERROR_NUMB_ONLY, MENU_01_CHECK_PO, \
     ERROR_NUMB_LEN, ERROR_NUMB_PREFIX_PO, FIND_PO_TRAN_ID, \
-    UNDER_CONSTRUCTION, ERROR_PO_NOT_EXISTING
+    UNDER_CONSTRUCTION, ERROR_PO_NOT_EXISTING, ERROR_PO_NOT_FOUND
 
 
 from models.chatbot_mst_user import MstUserModel
@@ -105,6 +105,10 @@ class ChatBotWebhook(Resource):
                         # print("find PO Status")
                         if user.user_type == 'VIP':
                             poObjs = WDPOAllStatusModel().find_by_po(message)
+                            if not poObjs:
+                                reply_msg = ERROR_PO_NOT_FOUND
+                                chatbot_helper.replyMsg(reply_token, reply_msg, CHANNEL_ACCESS_TOKEN)
+
                             wd_all_status.replyMsg(reply_token, poObjs, CHANNEL_ACCESS_TOKEN)
                         else:
                             print("by Vendor Name")
