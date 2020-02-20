@@ -8,7 +8,8 @@ from db import db
 from ma import ma
 
 from resources.chatbot import ChatBot, ChatBotWebhook
-from resources.chatbot_register import UserRegister
+from resources.chatbot_register import UserVendorRegister
+from resources.userauthen import UserAPRegister
 
 app = Flask(__name__)
 
@@ -26,7 +27,8 @@ def hello_world():
 
 
 api.add_resource(ChatBotWebhook, "/webhook")
-api.add_resource(UserRegister, "/userregister")
+api.add_resource(UserVendorRegister, "/uservendorregister")
+api.add_resource(UserAPRegister, "/userapregister")
 
 
 if __name__ == '__main__':
