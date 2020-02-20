@@ -4,8 +4,11 @@ from flask import request
 import json
 from datetime import datetime
 
+from libs.register_linkrichmenu import linkmenubyuser
 from libs.ap_authen import APAuthen, APAuthenException
 from models.chatbot_mst_user import MstUserModel
+
+from config import RICH_MENU_MAIN
 
 
 class UserAPRegister(Resource):
@@ -16,10 +19,12 @@ class UserAPRegister(Resource):
             user_name = user_json["user_name"]
             password = user_json["password"]
             user_token_id = user_json["user_token_id"]
+            # print(user_name, password)
             # print(user_token_id)
             # response = APAuthen.ap_authen(user_json["user_name"], user_json["password"], "APINTRANET")
             response = APAuthen.ap_authen(user_name, password, "APINTRANET")
             obj = json.loads(response.content)
+            # print(obj)
             # print(obj["employeeID"], obj["displayName"], obj["email"])
 
             # Create Chatbot Master User
@@ -39,6 +44,10 @@ class UserAPRegister(Resource):
             mst_user.modifydate = datetime.now()
 
             mst_user.save_to_db()
+
+            # Link Rich Menu
+            rich_menu_link = RICH_MENU_MAIN
+            response = linkmenubyuser(user_token_id, rich_menu_link)
 
             return {"message": "Successful Authentication"}, 200
             # return json.loads(response.content), 200

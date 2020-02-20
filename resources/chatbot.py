@@ -6,13 +6,14 @@ import re
 from datetime import datetime, timedelta
 
 from libs import chatbot_helper, log_linechatbot as logs, \
-    wd_check_status, wd_all_status, check_po
+    wd_check_status, wd_all_status, check_po, wd_register_page
 
 
 from config import CHANNEL_ACCESS_TOKEN, REPLY_WORDING, \
     DEFAULT_REPLY_WORDING, ERROR_NUMB_ONLY, MENU_01_CHECK_PO, \
     ERROR_NUMB_LEN, ERROR_NUMB_PREFIX_PO, FIND_PO_TRAN_ID, \
-    UNDER_CONSTRUCTION, ERROR_PO_NOT_EXISTING, ERROR_PO_NOT_FOUND
+    UNDER_CONSTRUCTION, ERROR_PO_NOT_EXISTING, ERROR_PO_NOT_FOUND, \
+    MSG_REGISTER
 
 
 from models.chatbot_mst_user import MstUserModel
@@ -79,20 +80,17 @@ class ChatBotWebhook(Resource):
             user = MstUserModel().check_auth_by_token_id(userId)
 
             if user:
-                if message == MENU_01_CHECK_PO:
+                if message == MENU_01_CHECK_PO:  # Push Menu 01
                     pass
-                elif re.match(FIND_PO_TRAN_ID, message):
+                # elif re.match(MSG_REGISTER, message):  # Register
+                #     wd_register_page.replyMsg(reply_token, CHANNEL_ACCESS_TOKEN)
+                elif re.match(FIND_PO_TRAN_ID, message):  # trans_id=xxxx
                     values = message.split("=")
                     tran_id = values[1]
                     poObjs = WDPOStatusModel().find_by_tran_id(tran_id)
-                    print(poObjs)
+                    # print(poObjs)
                     wd_check_status.replyMsg(reply_token, poObjs, CHANNEL_ACCESS_TOKEN)
                 elif message.isdigit():
-                    # if not check_po(message)(0, ):
-                    #     pass
-                    # # print("find PO Status")
-                    # poObjs = WDPOAllStatusModel().find_by_po(message)
-                    # wd_all_status.replyMsg(reply_token, poObjs, CHANNEL_ACCESS_TOKEN)
                     if len(message) != 10:
                         # print("Len Not Equal 10")
                         reply_msg = ERROR_NUMB_LEN
@@ -111,7 +109,7 @@ class ChatBotWebhook(Resource):
 
                             wd_all_status.replyMsg(reply_token, poObjs, CHANNEL_ACCESS_TOKEN)
                         else:
-                            print("by Vendor Name")
+                            # print("by Vendor Name")
                             po_existing = POHeaderModel().find_by_poid_by_vendor(_po_id=message,
                                                                                  _vendor_id=user.user_name)
                             if not po_existing:
@@ -127,8 +125,9 @@ class ChatBotWebhook(Resource):
                     # print("is Not Number")
                     reply_msg = ERROR_NUMB_ONLY
                     chatbot_helper.replyMsg(reply_token, reply_msg, CHANNEL_ACCESS_TOKEN)
-            else:
+            else:  # Register
                 print('not found')
+                wd_register_page.replyMsg(reply_token, CHANNEL_ACCESS_TOKEN)
                 # print("not found")
         elif msg_type == 'image':  # Image Upload to Line Bot
             image_id = payload['events'][0]['message']['id']
