@@ -27,6 +27,7 @@ def hello_world():
 
 
 api.add_resource(ChatBotWebhook, "/webhook")
+api.add_resource(ChatBot, "/test")
 api.add_resource(UserVendorRegister, "/uservendorregister")
 api.add_resource(UserAPRegister, "/userapregister")
 
