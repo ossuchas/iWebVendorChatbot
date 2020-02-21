@@ -13,7 +13,7 @@ from config import CHANNEL_ACCESS_TOKEN, REPLY_WORDING, \
     DEFAULT_REPLY_WORDING, ERROR_NUMB_ONLY, MENU_01_CHECK_PO, \
     ERROR_NUMB_LEN, ERROR_NUMB_PREFIX_PO, FIND_PO_TRAN_ID, \
     UNDER_CONSTRUCTION, ERROR_PO_NOT_EXISTING, ERROR_PO_NOT_FOUND, \
-    MSG_REGISTER
+    MSG_REGISTER, REGISTER_MSG
 
 
 from models.chatbot_mst_user import MstUserModel
@@ -82,8 +82,8 @@ class ChatBotWebhook(Resource):
             if user:
                 if message == MENU_01_CHECK_PO:  # Push Menu 01
                     pass
-                # elif re.match(MSG_REGISTER, message):  # Register
-                #     wd_register_page.replyMsg(reply_token, CHANNEL_ACCESS_TOKEN)
+                elif re.match(REGISTER_MSG, message):  # After Register
+                    pass
                 elif re.match(FIND_PO_TRAN_ID, message):  # trans_id=xxxx
                     values = message.split("=")
                     tran_id = values[1]
@@ -126,8 +126,11 @@ class ChatBotWebhook(Resource):
                     reply_msg = ERROR_NUMB_ONLY
                     chatbot_helper.replyMsg(reply_token, reply_msg, CHANNEL_ACCESS_TOKEN)
             else:  # Register
-                print('user not found')
-                wd_register_page.replyMsg(reply_token, CHANNEL_ACCESS_TOKEN)
+                if re.match(REGISTER_MSG, message):  # After Register
+                    pass
+                else:
+                    print('user not found')
+                    wd_register_page.replyMsg(reply_token, CHANNEL_ACCESS_TOKEN)
                 # print("not found")
         elif msg_type == 'image':  # Image Upload to Line Bot
             image_id = payload['events'][0]['message']['id']

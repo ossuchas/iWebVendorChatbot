@@ -47,3 +47,4 @@ UNDER_CONSTRUCTION = "under construction"
 
 # Register
 MSG_REGISTER = "iWebVendor Register"
+REGISTER_MSG = "register=>username: "
