@@ -126,7 +126,7 @@ class ChatBotWebhook(Resource):
                     reply_msg = ERROR_NUMB_ONLY
                     chatbot_helper.replyMsg(reply_token, reply_msg, CHANNEL_ACCESS_TOKEN)
             else:  # Register
-                print('not found')
+                print('user not found')
                 wd_register_page.replyMsg(reply_token, CHANNEL_ACCESS_TOKEN)
                 # print("not found")
         elif msg_type == 'image':  # Image Upload to Line Bot
