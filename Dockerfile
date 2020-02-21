@@ -53,7 +53,6 @@ RUN apt-get update && apt-get install gettext nano vim -y
 
 WORKDIR /home/ubuntu/src/app
 COPY requirements.txt .
-COPY .env .
 
 RUN pip install python-dotenv
 RUN pip install --no-cache-dir -r requirements.txt
