@@ -13,7 +13,7 @@ from config import CHANNEL_ACCESS_TOKEN, REPLY_WORDING, \
     DEFAULT_REPLY_WORDING, ERROR_NUMB_ONLY, MENU_01_CHECK_PO, \
     ERROR_NUMB_LEN, ERROR_NUMB_PREFIX_PO, FIND_PO_TRAN_ID, \
     UNDER_CONSTRUCTION, ERROR_PO_NOT_EXISTING, ERROR_PO_NOT_FOUND, \
-    MSG_REGISTER, REGISTER_MSG
+    MSG_REGISTER, REGISTER_MSG, EXCEPTION_MSG01
 
 
 from models.chatbot_mst_user import MstUserModel
@@ -120,6 +120,8 @@ class ChatBotWebhook(Resource):
                             wd_all_status.replyMsg(reply_token, poObjs, CHANNEL_ACCESS_TOKEN)
                 elif re.match(UNDER_CONSTRUCTION, message):
                     # print("under construction")
+                    pass
+                elif re.match(EXCEPTION_MSG01, message):
                     pass
                 else:
                     # print("is Not Number")

@@ -48,3 +48,6 @@ UNDER_CONSTRUCTION = "under construction"
 # Register
 MSG_REGISTER = "iWebVendor Register"
 REGISTER_MSG = "register=>username: "
+
+# Exception Msg
+EXCEPTION_MSG01 = "Comming soon."
