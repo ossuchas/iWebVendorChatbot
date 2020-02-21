@@ -45,7 +45,7 @@ class UserVendorRegister(Resource):
 
             # Link Rich Menu
             rich_menu_link = RICH_MENU_MAIN
-            # response = linkmenubyuser(user_token_id, rich_menu_link)
+            response = linkmenubyuser(user_token_id, rich_menu_link)
             return {"message": "Register Success"}, 200
         except:
             traceback.print_exc()
