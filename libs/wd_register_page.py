@@ -19,44 +19,55 @@ def replyMsg(Reply_token: str = None, line_Acees_Token: str = None):
             "contents":
                 {
                     "type": "bubble",
-                    "size": "kilo",
                     "body": {
                         "type": "box",
                         "layout": "vertical",
                         "contents": [
                             {
                                 "type": "box",
-                                "layout": "vertical",
+                                "layout": "horizontal",
                                 "contents": [
                                     {
-                                        "type": "button",
-                                        "action": {
-                                            "type": "uri",
-                                            "label": "พนักงาน AP",
-                                            "uri": "https://liff.line.me/1653830448-Z2Y9Y3yD"
-                                        },
-                                        "style": "primary",
-                                        "color": "#c92028"
+                                        "type": "box",
+                                        "layout": "vertical",
+                                        "contents": [
+                                            {
+                                                "type": "image",
+                                                "url": "https://i.ibb.co/cbYqRfH/register-menu-v1-0.png",
+                                                "size": "full",
+                                                "aspectMode": "cover",
+                                                "gravity": "center",
+                                                "aspectRatio": "30:9",
+                                                "action": {
+                                                    "type": "uri",
+                                                    "label": "action",
+                                                    "uri": "https://liff.line.me/1653830448-Z2Y9Y3yD"
+                                                }
+                                            },
+                                            {
+                                                "type": "separator",
+                                                "margin": "sm"
+                                            },
+                                            {
+                                                "type": "image",
+                                                "url": "https://i.ibb.co/cLZkC4s/register-menu-v1-0-vendor.png",
+                                                "size": "full",
+                                                "aspectMode": "cover",
+                                                "aspectRatio": "30:9",
+                                                "gravity": "center",
+                                                "action": {
+                                                    "type": "uri",
+                                                    "label": "action",
+                                                    "uri": "https://liff.line.me/1653830448-j5DnDxlv"
+                                                }
+                                            }
+                                        ],
+                                        "flex": 1
                                     }
                                 ]
-                            },
-                            {
-                                "type": "box",
-                                "layout": "vertical",
-                                "contents": [
-                                    {
-                                        "type": "button",
-                                        "action": {
-                                            "type": "uri",
-                                            "label": "ร้านค้า,ผู้รับเหมา",
-                                            "uri": "https://liff.line.me/1653830448-j5DnDxlv"
-                                        },
-                                        "style": "primary"
-                                    }
-                                ],
-                                "margin": "md"
                             }
-                        ]
+                        ],
+                        "paddingAll": "0px"
                     }
                 }
         }
